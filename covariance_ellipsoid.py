@@ -98,7 +98,10 @@ if __name__ == "__main__":
 
     ax = plot_covariance_ellipsoid_from_data(y,confidence=0.95, ax=ax)
 
-    plt.axis("equal")
+    try:
+        plt.axis("equal")
+    except NotImplementedError:
+        plt.axis("auto")
     # ax.set_xlim([-7,7])
     # ax.set_ylim([-7,7])
     # if y.shape[0] > 2:
