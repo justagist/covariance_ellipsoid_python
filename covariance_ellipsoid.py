@@ -45,6 +45,25 @@ def get_covariance_ellipsoid(covariance, confidence=0.95, mean=None):
 
     return mean.flatten(), axes
 
+def point_is_in_covariance_ellipsoid(point, mean, covariance, confidence=0.85):
+    """
+    Check if the provided point is in a covariance ellipsoid defined by the given mean, covariance and confidence interval.
+
+    :param point: the point to check
+    :type point: np.ndarray
+    :param mean: center of ellipse
+    :type mean: np.ndarray
+    :param covariance: covariance matrix
+    :type covariance: np.ndarray
+    :param confidence: confidence interval to test against, defaults to 0.85
+    :type confidence: float, optional
+    :return: True if point is within the ellipse, False otherwise
+    :rtype: bool
+    """
+    point = point.reshape([-1,1]).copy()
+    mean = mean.reshape([-1,1]).copy()
+    return (point - mean).T.dot(np.linalg.inv(covariance).dot(point-mean)) <= chi2.ppf(confidence, mean.shape[0])
+
 def plot_covariance_ellipsoid(mean, covariance, confidence=0.95, datapoints=None, ax=None):
     """
     Draw a covariance ellipsoid of specified confidence.
