@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.stats import chi2
-from plot_utils import plot_2d_ellipse, plot_3d_ellipsoid
+from covell_plot_utils import plot_2d_ellipse, plot_3d_ellipsoid
 
 def get_mean_and_covariance_matrix(data, **kwargs):
     """
